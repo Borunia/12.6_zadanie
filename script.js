@@ -13,13 +13,23 @@ function searchCountries() {
         url: url + countryName,
         method: "GET",
         success: showCountriesList
-    });
+    })
+    .fail(function(){
+    	countriesList.empty();
+    	$('#countries').text('Country doesn\'t\ exist. Please try again.');   
+	});
 }
 
 function showCountriesList(resp) {
     countriesList.empty();
     resp.forEach(function(item) {
-        $('<li>').text(item.name).appendTo(countriesList);
+        $('<li>')
+        .append($('<h3>').text(item.name))
+        .append($('<p>').text('Capital city: ' + item.capital))
+        .append($('<p>').text('Region: ' + item.region))
+        .appendTo(countriesList);
     
 });
 }
+
+
